@@ -4,8 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import framework.Assertions;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 public class CartUtils {
+
+    private static final Logger logger = LoggerFactory.getLogger("com.intuit.karate");
 
     /**
      * *********************************
@@ -36,16 +40,5 @@ public class CartUtils {
             Assertions.assertEquals((int) Math.round(sumOfTotal), cart.get("total"));
             Assertions.assertEquals((int) sumOfAllDiscounted, cart.get("discountedTotal"));
         }
-    }
-
-    public static void validateProductDetails(List<Map<String, Object>> products, Object productsfromAPIs) {
-        for (int i = 0; i < products.size(); i++) {
-            Assertions.assertEquals(products.size(), ((List<Map<String, Object>>) productsfromAPIs).size());
-            Map<String, Object> productFromCart = products.get(i);
-            Map<String, Object> productFromAPI = ((List<Map<String, Object>>) productsfromAPIs).get(i);
-            Assertions.assertEquals(productFromCart.get("title"), productFromAPI.get("title"));
-            Assertions.assertEquals(productFromCart.get("price"), productFromAPI.get("price"));
-        }
-        ;
     }
 }

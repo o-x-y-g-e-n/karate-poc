@@ -2,18 +2,18 @@
 
 - [x] Functional and Integrated Tests Automation
 - [x] Support for Java Custom Assertions
--[x] Support for Parallel Runs
--[x] Support for parameterized commandline execution (to integrate with Jenkins)
--[x] Support for DBUtils (Example)
--[x] Support for Kafka (Custom Built - Example)
--[x] Support for global test data
--[x] Cucumber Reports
+- [x] Support for Parallel Runs
+- [x] Support for parameterized commandline execution (to integrate with Jenkins)
+- [x] Support for DBUtils (Example)
+- [x] Support for Kafka (Custom Built - Example)
+- [x] Support for global test data
+- [x] Cucumber Reports
 
 ### API's Automated
 
--[x] Auth
--[x] Product & Category
--[x] Cart
+- [x] Auth
+- [x] Product & Category
+- [x] Cart
 
 ### Boilerplate command
 
@@ -51,6 +51,9 @@ repetition.
  mvn clean test -Dkarate.options="--tags @cart,@product,@product-category,@auth" -Dtest=DemoTestsParallel
 ```
 
+### Test Execution - Cucumber Report
+![](./images/cucumber.png)
+
 ### The idea of util methods
 
 I am an old dog. I love utils. I love maintaining them. But karate actually exposes all their assertion/actions through
@@ -65,11 +68,11 @@ BDD already. When I started, I had 3 options.
 
 ### Assertion Logic
 
--[x] Response Code
--[x] Schema
--[x] Required Fields
--[x] Response Data
--[ ] Response Headers
+- [x] Response Code
+- [x] Schema
+- [x] Required Fields
+- [x] Response Data
+- [ ] Response Headers
 *Ideally, I would also validate response headers (security, data-content and custom added headers). I didn't validate
 them here because the API's kinda didn't have much solid to validate*
 

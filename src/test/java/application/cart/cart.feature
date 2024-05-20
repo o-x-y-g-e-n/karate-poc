@@ -60,7 +60,7 @@ Feature: Products API
     * match each response.carts == cartSchema
     * cartUtils.validateCarts(response.carts)
 
-  @test
+
   Scenario: Add a cart - Happy path
     * def cart = testData.cart.happyPath
     Given path '/cart/add'
@@ -71,19 +71,24 @@ Feature: Products API
     * def productsfromAPIs = []
     * eval
     """
-       karate.forEach(products, function(product) {
-             var response = karate.http(baseUrl + '/product/' + product.id).get().body;
-             var status = karate.http(baseUrl + '/product/' + product.id).get().status;
-             if(status !== 200) {
-                  throw 'KarateException: Something went wrong while fetching the product with id: ' + product.id
-             }
-             productsfromAPIs.push(response)
-          }
-       )
+      karate.forEach(products, function(product) {
+	    var response = karate.http(baseUrl + '/product/' + product.id).get();
+	    var status = response.status;
+
+        if (status !== 200) {
+            throw 'KarateException: Something went wrong while fetching the product with id: ' + product.id;
+        }
+
+        var responseBody = response.body;
+        karate.log("Add Cart - Happy path: Comparing: " + responseBody.id + " - " + product.id);
+        karate.log("Add Cart - Happy path: Comparing: " + responseBody.title + " - " + product.title);
+        karate.log("Add Cart - Happy path: Comparing: " + responseBody.price + " - " + product.price);
+
+        if (responseBody.id !== product.id || responseBody.title !== product.title) {
+            throw 'AssertionError: Product from cart and product API doesn\'t match';
+        }
+      });
     """
-    * print products
-    * print productsfromAPIs
-    * cartUtils.validateProductDetails(products, productsfromAPIs)
 
   Scenario: Add a cart - Missing Quantity
     * def cart = testData.cart.missingQuantity
