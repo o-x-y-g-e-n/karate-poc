@@ -31,17 +31,16 @@ public class KafkaUtils {
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        final String TOPIC1 = "test-topic";
+
         int messagesInTopic = 100;
         KafkaProducer<String, String> producer = new KafkaProducer<>(props);
         for (int i = 0; i < messagesInTopic; i++) {
-            producer.send(new ProducerRecord(TOPIC1, null, "a", String.valueOf(i))).get();
+            producer.send(new ProducerRecord(topic, null, "a", String.valueOf(i))).get();
         }
     }
 
     public List<String> readMessages(long secondsAgo) {
         String bootstrapServers = "localhost:9093";
-        String topic = "test-topic";
 
         Properties properties = new Properties();
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -107,7 +106,7 @@ public class KafkaUtils {
 
     public List<String> consumeMessages(int lastXMessages) {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9093");
+        props.put("bootstrap.servers", bootstrapServers);
         props.put("group.id", "my-group");
         props.put("enable.auto.commit", "true");
         props.put("auto.commit.interval.ms", "1000");
@@ -155,14 +154,13 @@ public class KafkaUtils {
         return messages;
     }
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args)  {
         String bootstrapServers = "localhost:9093";
         String topic = "test-topic";
-
         KafkaUtils kafkaUtility = new KafkaUtils(bootstrapServers, topic);
         List<String> messages = kafkaUtility.readMessages(60);
         System.out.println(messages);
-        List<String> messages1 = kafkaUtility.consumeMessages(3);
+        List<String> messages1 = kafkaUtility.consumeMessages(100);
         System.out.println(messages1);
     }
 }
