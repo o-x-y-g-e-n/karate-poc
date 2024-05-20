@@ -12,8 +12,8 @@ public class Assertions {
     /**
      * Asserts that two objects are equal with a custom error message.
      *
-     * @param actual       the actual value
-     * @param expected     the expected value
+     * @param actual   the actual value
+     * @param expected the expected value
      */
     public static void assertEquals(Object actual, Object expected) {
         try {
