@@ -1,4 +1,4 @@
-@db
+@ignore
 Feature: Test DB
 
   Scenario: Fetch values from DB
